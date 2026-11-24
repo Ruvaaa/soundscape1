@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0615" />
+    <title>Soundgarden</title>
+    <meta name="description" content="Soundgarden turns sound into a living, evolving garden of light." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0615'/%3E%3Cpath d='M16 27V14' stroke='%23eb8cd0' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3Cpath d='M16 20c-5.500 0-8.500-3-9-8 5.500 0 8.500 3 9 8ZM16 15c0-5 2.500-8.500 8-10 .5 5.500-2.500 8.500-8 10Z' stroke='%23eb8cd0' stroke-width='1.800' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="css/soundgarden.css" />
+  </head>
+  <body class="mode-hero">
+    <!-- icon sprite -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <symbol id="i-demo" viewBox="0 0 24 24"><path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M18.5 15.5c.2 1.7.8 2.3 2.5 2.5-1.7.2-2.3.8-2.5 2.5-.2-1.7-.8-2.3-2.5-2.5 1.7-.2 2.3-.8 2.5-2.5Z" fill="currentColor"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16.5" cy="16" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-tab" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 9.5h18M8 5v4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+      <symbol id="i-system" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 20h6M12 16v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 10c1.5-1.6 2.5 1.6 4 0s2.5 1.6 4 0" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor"/></symbol>
+      <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+      <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="15" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+      <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    </svg>
+
+    <canvas id="stage" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <header class="brand" id="brand">
+      <svg class="glyph" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 29V14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M16 20c-5.5 0-8.5-3-9-8 5.5 0 8.5 3 9 8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M16 15c0-5 2.5-8.5 8-10 .5 5.5-2.5 8.5-8 10Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="25.5" cy="22" r="1.4" fill="currentColor"/><circle cx="7.5" cy="6.5" r="1" fill="currentColor"/><circle cx="21" cy="26" r="0.9" fill="currentColor"/>
+      </svg>
+      <span class="wordmark">Soundgarden</span>
+    </header>
+
+    <!-- Landing -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <p class="eyebrow">An audio-reactive garden</p>
+      <h1 id="hero-title">Sound, grown<br />into light.</h1>
+      <p class="lede">Play a song, share a tab, or just hum. Soundgarden listens and lets the garden answer.</p>
+      <div class="hero-actions">
+        <button class="btn primary big" id="hero-immersive" type="button"><svg><use href="#i-expand" /></svg>Enter immersive</button>
+        <button class="btn ghost big" id="hero-playground" type="button"><svg><use href="#i-sliders" /></svg>Open playground</button>
+      </div>
+      <p class="fine">Starts with a short generated demo piece. Bring your own sound from the playground: upload a file, use the microphone, or share a tab.</p>
+    </section>
+
+    <!-- Playground panel -->
+    <aside class="panel" id="panel" aria-label="Playground controls">
+      <div class="panel-head">
+        <h2 class="panel-title">Playground</h2>
+        <button class="btn primary small" id="btn-immersive" type="button"><svg><use href="#i-expand" /></svg>Immersive</button>
+        <button class="icon-btn" id="btn-collapse" type="button" aria-label="Hide controls" title="Hide controls (H)"><svg><use href="#i-close" /></svg></button>
+      </div>
+
+      <div class="panel-scroll">
+        <section class="sec" aria-labelledby="h-sound">
+          <h3 id="h-sound">Sound</h3>
+          <div class="sources" id="source-list" role="radiogroup" aria-label="Audio source"></div>
+          <div class="source-card" id="source-card"></div>
+          <div class="status" id="status" role="status" aria-live="polite">
+            <span class="dot" id="status-dot"></span>
+            <div><div class="status-main" id="status-main">Ambient preview</div><div class="status-detail" id="status-detail"></div></div>
+          </div>
+          <div class="signal" id="signal" aria-hidden="true">
+            <div class="sig"><span>Low</span><i><b id="m-bass"></b></i></div>
+            <div class="sig"><span>Mid</span><i><b id="m-mid"></b></i></div>
+            <div class="sig"><span>High</span><i><b id="m-treble"></b></i></div>
+            <div class="sig-foot"><span class="pulse" id="m-beat"></span><span id="m-note"></span></div>
+          </div>
+        </section>
+
+        <section class="sec" aria-labelledby="h-style">
+          <h3 id="h-style">Style</h3>
+          <div class="styles" id="style-list" role="radiogroup" aria-label="Visual style"></div>
+        </section>
+
+        <section class="sec" aria-labelledby="h-palette">
+          <h3 id="h-palette">Palette</h3>
+          <div class="palettes" id="palette-list" role="radiogroup" aria-label="Colour palette"></div>
+          <div class="palette-name" id="palette-name"></div>
+        </section>
+
+        <section class="sec" aria-labelledby="h-shape">
+          <h3 id="h-shape">Shape &amp; motion</h3>
+          <div class="sliders" id="sliders"></div>
+        </section>
+
+        <div class="panel-foot">
+          <button class="btn ghost small" id="btn-surprise" type="button">Surprise me</button>
+          <button class="btn ghost small" id="btn-reset" type="button">Reset</button>
+        </div>
+      </div>
+    </aside>
+
+    <button class="reveal" id="btn-reveal" type="button" aria-label="Show controls" title="Show controls (H)"><svg><use href="#i-sliders" /></svg></button>
+
+    <!-- Immersive HUD -->
+    <div class="hud" id="hud" aria-label="Immersive controls">
+      <div class="hud-styles" id="hud-styles" role="radiogroup" aria-label="Visual style"></div>
+      <div class="hud-status"><span class="dot" id="hud-dot"></span><span id="hud-text">Ambient preview</span></div>
+      <button class="hud-btn" id="hud-play" type="button" aria-label="Pause" hidden><svg><use href="#i-pause" /></svg></button>
+      <button class="hud-btn" id="hud-exit" type="button" aria-label="Exit immersive mode" title="Exit (Esc)"><svg><use href="#i-close" /></svg><span>Exit</span></button>
+    </div>
+
+    <!-- Browsers keep audio suspended until the user interacts -->
+    <button class="gate" id="gate" type="button" hidden>Tap to enable sound</button>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="dropveil" id="dropveil" hidden>Drop an audio file to play it</div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
